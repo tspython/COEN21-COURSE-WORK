@@ -60,15 +60,15 @@ module WinLose(
 		Win <= 0;
 		Lose<= 0;
 
-		if(Stop)
+		if(Stop) //assert stop
 			begin
-				CntEn = 0;
-				if(UpCount == DownCount)
+				CntEn = 0; //stop counting
+				if(UpCount == DownCount) //win case
 					Win<=1;
 				else
-					Lose<=1;
+					Lose<=1; //lose case
 			end
 		else
-			CntEn = 1;
+			CntEn = 1; //continue counting
 	end
 endmodule
