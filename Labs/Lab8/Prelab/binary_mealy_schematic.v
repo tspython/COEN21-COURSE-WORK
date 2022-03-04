@@ -3,8 +3,8 @@ module binary_mealy_schematic(Clock, Resetn, d, n, z, c);
     output reg z, c;
     reg [2:1] y, Y;
     parameter [2:1] 
-                S1 = 2'b00;
-                S2 = 2'b10;
+                S1 = 2'b00,
+                S2 = 2'b10,
                 S3 = 2'b01;
     always @(d,n,y)
         case(y)
@@ -27,9 +27,9 @@ module binary_mealy_schematic(Clock, Resetn, d, n, z, c);
                 end
             S2: if(d)
                 begin
-                    z = 0;
-                    c = 0;
-                    Y = 2'b11;
+                    z = 1;
+                    c = 1;
+                    Y = 2'b00;
                 end
                 if(n)
                 begin
@@ -40,25 +40,25 @@ module binary_mealy_schematic(Clock, Resetn, d, n, z, c);
                 begin
                     z = 0;
                     c = 0;
-                    Y = b'10;
+                    Y = 2b'10;
                 end
             S3: if(d)
                 begin
                     z = 1;
                     c = 0;
-                    Y = b'00;
+                    Y = 2'b00;
                 end
                 if(n)
                 begin
                     z = 0;
                     c = 0;
-                    Y = b'10;
+                    Y = 2'b10;
                 end
                 else 
                 begin
                     z = 0;
                     c = 0;
-                    Y = b'01;
+                    Y = 2'b01;
                 end
         endcase
 

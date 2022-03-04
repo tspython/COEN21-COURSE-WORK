@@ -1,7 +1,7 @@
 module 610FSM(Clock, Resetn, w1, w2, z);
     input Clock, Resetn, w1, w2;
     output reg z;
-    reg [2:1] y1, y2;
+    reg [2:1] y, Y;
     wire X;
     parameter [2:1]
                 A = 2'b00,
@@ -11,46 +11,52 @@ module 610FSM(Clock, Resetn, w1, w2, z);
 
     assign X = w1 ^ w2;
 
-    always @(X or y1)
+    always @(X, y)
         case(y1)
-            A:  if(k) begin
-                    y2 <= A;
-                    z <= 0;
+            A:  if(k) 
+                begin
+                    Y = A;
+                    z = 0;
+                end
+                else 
+                begin
+                    Y = B;
+                    z = 0;
+                end
+            B:  if(k) 
+                begin
+                    Y = A;
+                    z = 0;
                 end
                 else begin
-                    y2 <= B;
-                    z <= 0;
-                end
-            B: if(k) begin
-                    y2 <= A;
-                    z <= 0;
-                end
-                else begin
-                    y2 <= C;
-                    z <= 0;
+                    Y = C;
+                    z = 0;
                 end
             C: if(k) begin
-                    y2 <= A;
-                    z <= 0;
+                    Y = A;
+                    z = 0;
                 end
                 else begin
-                    y2 <= D;
-                    z <= 0;
+                    Y = D;
+                    z = 0;
                 end
-            D: if(k) begin
-                    y2 <= A
-                    z <=  -
+            D:  if(k) 
+                begin
+                    Y = A
+                    z = 0;
                 end
-                else begin 
-                    y2 <= D
-                    z <= 1
+                else 
+                begin 
+                    Y = D;
+                    z = 1;
                 end
         endcase
+
     always @(negedge Resetn or posedge Clock)
         if(Resetn == 0)
             y1<=A;
         else 
-            y1<=y2;
+            y<=Y;
 endmodule
     
    
